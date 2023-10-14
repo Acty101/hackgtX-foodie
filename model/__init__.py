@@ -1,1 +1,1 @@
-from .main import CVModel
+from .main import CVModelYolo
