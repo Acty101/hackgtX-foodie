@@ -3,7 +3,7 @@ import time
 import json
 from utils import InputGenerator
 
-URL = "https://api.runpod.ai/v2/qkt03nislavf79"
+URL = "https://api.runpod.ai/v2/mi1w7cfskbr6up"
 
 
 def main():
@@ -15,7 +15,7 @@ def main():
     InputGenerator(img).generate_input_file()
     with open("./test_input.json", "r") as json_file:
         data = json.load(json_file)
-    payload = {"img": data["input"]["img"]}
+    payload = data
     headers = {
         "accept": "application/json",
         "content-type": "application/json",
@@ -40,6 +40,7 @@ def main():
 
     if STATUS == "COMPLETED":
         print("Output received!")
+        print(response)
     else:
         print("Couldn't receive output")
         print("Response:", response)
