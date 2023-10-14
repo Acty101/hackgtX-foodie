@@ -3,3 +3,4 @@ model/dataset
 model/runs
 *.png
 *.webp
+*.jpg
