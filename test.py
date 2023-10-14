@@ -11,7 +11,7 @@ def main():
     from dotenv import load_dotenv
 
     load_dotenv()
-    img = "test_img.webp"
+    img = "test1.jpg"
     InputGenerator(img).generate_input_file()
     with open("./test_input.json", "r") as json_file:
         data = json.load(json_file)
