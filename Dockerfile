@@ -16,6 +16,7 @@ RUN pip install runpod roboflow python-dotenv ultralytics==8.0.28
 # copy all folders
 COPY model model/
 COPY recipe recipe/
+COPY config config/
 
 # copy test input file
 COPY test_input.json ./
