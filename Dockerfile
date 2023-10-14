@@ -13,8 +13,13 @@ RUN apt-get update -y && \
 # install runpod
 RUN pip install runpod roboflow python-dotenv
 
-# copy all files/folders
-COPY . .
+# copy all folders
+COPY model model/
+COPY recipe recipe/
+COPY utils utils/
+
+# copy main script
+COPY main.py ./
 
 CMD ["python3", "main.py"]
 
