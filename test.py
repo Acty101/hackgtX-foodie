@@ -40,7 +40,9 @@ def main():
 
     if STATUS == "COMPLETED":
         print("Output received!")
-        print(response)
+        print(
+            response
+        )  # {'delayTime': 9456, 'executionTime': 8666, 'id': '5390b81e-da4e-4f7d-8878-5c1824529872-u1', 'output': ['Cucumber', 'Orange', 'Cucumber', 'Tomato', 'Tomato', 'Cucumber'], 'status': 'COMPLETED'}
     else:
         print("Couldn't receive output")
         print("Response:", response)
