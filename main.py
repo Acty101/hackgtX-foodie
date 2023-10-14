@@ -27,13 +27,13 @@ def handler(event):
         classes = model.predict(img_path, conf=conf, overlap=overlap)
     except KeyError:
         classes = model.predict(img_path)
-    print("Predicted classes: ", classes)
+    return classes
     # hit api
 
-from utils import InputGenerator
+# from utils import InputGenerator
 
-gen = InputGenerator("./vegan-food-and-ingredients.webp")
-gen.generate_input_file()
+# gen = InputGenerator("./vegan-food-and-ingredients.webp")
+# gen.generate_input_file()
 
 # start the local serverless instance
 runpod.serverless.start({"handler": handler})
