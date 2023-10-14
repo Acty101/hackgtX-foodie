@@ -11,12 +11,15 @@ RUN apt-get update -y && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # install runpod
-RUN pip install runpod roboflow python-dotenv
+RUN pip install runpod roboflow python-dotenv ultralytics==8.0.28
 
 # copy all folders
 COPY model model/
 COPY recipe recipe/
 COPY utils utils/
+
+# copy test input file
+COPY test_input.json ./
 
 # copy main script
 COPY main.py ./
