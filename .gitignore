@@ -4,3 +4,4 @@ model/runs
 *.png
 *.webp
 *.jpg
+.vscode/
