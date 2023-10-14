@@ -2,20 +2,25 @@ import runpod
 from dotenv import load_dotenv
 import os
 from model import CVModelYolo
-import utils
+from recipe import RecipeFinder
 
 # Get the Base64 encoded string from the environment variable
 roboflow_api = os.getenv("ROBOFLOW_API_KEY")
 # load model
 load_dotenv()
-model = CVModelYolo(weights='./model/best.pt',yaml_path='./model/class_names.yaml')
+CONFIG_PATH = "./config"
+model = CVModelYolo(
+    weights=os.path.join(CONFIG_PATH, "best.pt"),
+    yaml_path=os.path.join(CONFIG_PATH, "class_names.yaml"),
+)
 
 
 def handler(event):
     """
-    Expected event object: 
+    Expected event object:
     "input": {
         "img": base_64 image to run prediction on (str)
+        "threshold": float 0-1 to determine percentage of ingredients matched before returning
         "conf": confidence threshold to predict (int 0-100)
         "overlap": acceptable overlap (int 0-100)
     }
@@ -30,13 +35,24 @@ def handler(event):
         classes = model.predict(img_path, conf=conf, overlap=overlap)
     except KeyError:
         classes = model.predict(img_path)
-    return classes
-    # hit api
+    recipe_finder = RecipeFinder(
+        class_names=classes,
+        json_ingredients_filepath=os.path.join(
+            CONFIG_PATH, "ingredient_to_recipes.json"
+        ),
+        json_recipe_filepath=os.path.join(CONFIG_PATH, "recipe_to_ingredients.json"),
+    )
+    # get recipes
+    try:
+        threshold = input["threshold"]
+        return recipe_finder.get_recipes(threshold)
+    except KeyError:
+        return recipe_finder.get_recipes()
 
 
 # from utils import InputGenerator
 
-# gen = InputGenerator("./vegan-food-and-ingredients.webp")
+# gen = InputGenerator("test1.jpg")
 # gen.generate_input_file()
 
 # start the local serverless instance
