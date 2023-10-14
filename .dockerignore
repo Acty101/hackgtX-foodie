@@ -1,4 +1,9 @@
+# model subfolder to ignore
 model/dataset
 model/test**
 model/runs
 model/training.py
+
+# recipe subfolder to ignore
+recipe/recipes.py
+recipe/temp.py
