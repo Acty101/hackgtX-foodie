@@ -80,43 +80,19 @@ INGREDIENTS = [
 ]
 
 
-def process_recipes(json_1, json_2, json_3):
+def process_recipes(json_path):
     ingredient_to_recipes = defaultdict(list)
+    with open(json_path, "r") as file:
+        data = json.load(file)
 
-    # json_1
-    for recipe in json_1.values():
+    for id, recipe in data.items():
         for string in recipe["ingredients"]:
             print("string: ", string)
             for ingredient in INGREDIENTS:
                 print("ingredient: ", ingredient)
-                if recipe["title"].title() in ingredient_to_recipes[ingredient]:
-                    pass
-                else:
-                    ingredient_to_recipes[ingredient].append(recipe["title"].title())
-
-    # json_2
-    # for recipe in json_2.values():
-    #     for string in recipe["ingredients"]:
-    #         for ingredient in INGREDIENTS:
-    #             if ingredient.lower() in string.lower():
-    #                 if recipe["title"].title() in ingredient_to_recipes[ingredient]:
-    #                     pass
-    #                 else:
-    #                     ingredient_to_recipes[ingredient].append(
-    #                         recipe["title"].title()
-    #                     )
-
-    # # JSON_3
-    # for recipe in json_3.values():
-    #     for string in recipe["ingredients"]:
-    #         for ingredient in INGREDIENTS:
-    #             if ingredient.lower() in string.lower():
-    #                 if recipe["title"].title() in ingredient_to_recipes[ingredient]:
-    #                     pass
-    #                 else:
-    #                     ingredient_to_recipes[ingredient].append(
-    #                         recipe["title"].title()
-    #                     )
+                if ingredient in string:
+                    ingredient_to_recipes[ingredient.lower()].append(recipe["title"])
+                    break
 
     with open("ingredient_to_recipes.json", "w") as f:
         json.dump(ingredient_to_recipes, f, indent=4)
@@ -130,14 +106,7 @@ paths = [
     "recipes_raw_nosource_fn.json",
 ]
 
-print(os.getcwd())
-
-for i in range(3):
-    print(os.path.join(os.getcwd(), paths[i]))
-    with open(os.path.join(os.getcwd(), paths[i]), "r") as f:
-        json_arrays.append(json.load(f))
-
-process_recipes(*json_arrays)
+#process_recipes(paths[0])
 
 
 # {
@@ -194,3 +163,19 @@ process_recipes(*json_arrays)
 #     "title": "Grammie Hamblet's Deviled Crab",
 #     "picture_link": null
 #   },
+
+
+def clean_recipe(json_file):
+    """Generate json file with recipe title as key"""
+    with open(json_file, "r") as file:
+        datas = json.load(file)
+    result = {}
+    for key, value in datas.items():
+        title = value.pop('title')
+        result[title] = value
+    with open("./recipe_to_ingredients.json", "w") as json_file:
+        json.dump(result, json_file)
+    
+
+
+ # clean_recipe('./recipes_raw_nosource_ar.json')
