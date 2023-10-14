@@ -10,16 +10,19 @@ roboflow_api = os.getenv("ROBOFLOW_API_KEY")
 load_dotenv()
 model = CVModel(roboflow_api)
 
+
 def handler(event):
     """
-    Expected event: 
-    "img": base_64 image to run prediction on (str)
-    "conf": confidence threshold to predict (int 0-100)
-    "overlap": acceptable overlap (int 0-100)
+    Expected event object: 
+    "input": {
+        "img": base_64 image to run prediction on (str)
+        "conf": confidence threshold to predict (int 0-100)
+        "overlap": acceptable overlap (int 0-100)
+    }
     """
     # model inference, returns classes
     input = event["input"]
-    b64_img = input['img']
+    b64_img = input["img"]
     img_path = model.process_save_b64(b64_img)
     try:
         conf = input["conf"]
@@ -29,6 +32,7 @@ def handler(event):
         classes = model.predict(img_path)
     return classes
     # hit api
+
 
 # from utils import InputGenerator
 
