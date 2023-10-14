@@ -1,14 +1,14 @@
 import runpod
 from dotenv import load_dotenv
 import os
-from model import CVModel
+from model import CVModelYolo
 import utils
 
 # Get the Base64 encoded string from the environment variable
 roboflow_api = os.getenv("ROBOFLOW_API_KEY")
 # load model
 load_dotenv()
-model = CVModel(roboflow_api)
+model = CVModelYolo(weights='./model/best.pt',yaml_path='./model/class_names.yaml')
 
 
 def handler(event):
