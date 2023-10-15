@@ -29,8 +29,8 @@ class RecipeFinder:
                 self.mapping[value] = 0
         self.recipes = []
 
-    def get_recipes(self):
-        self._find_recipes()
+    def get_recipes(self, threshold=0.15):
+        self._find_recipes(threshold=threshold)
         return self.recipes
 
     def _find_recipes(self, threshold=0.15):
