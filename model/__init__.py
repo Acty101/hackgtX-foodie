@@ -1,1 +1,1 @@
-from .main import CVModelYolo
+from .main import CVModelYolo, CVModelRoboflow

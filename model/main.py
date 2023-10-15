@@ -2,7 +2,7 @@ from roboflow import Roboflow
 from ultralytics import YOLO
 from PIL import Image
 from io import BytesIO
-from abc import ABC, abstractmethod
+from abc import ABC
 import base64
 import yaml
 
@@ -49,8 +49,8 @@ class CVModelYolo(CVModel):
 class CVModelRoboflow(CVModel):
     def __init__(self, api_key) -> None:
         rf = Roboflow(api_key=api_key)
-        project = rf.workspace().project("group_work")
-        self.model = project.version(2).model
+        project = rf.workspace().project("detection-cuaeq")
+        self.model = project.version(6).model    
 
     def predict(self, img_file, conf=0.4, overlap=0.3):
         datas = self.model.predict(
