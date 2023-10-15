@@ -1,5 +1,5 @@
 .env
-model/dataset
+model/dataset**
 model/runs
 *.png
 *.webp

@@ -1,5 +1,5 @@
 # model subfolder to ignore
-model/dataset
+model/dataset**
 model/test**
 model/runs
 model/training.py
