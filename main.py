@@ -22,7 +22,6 @@ def handler(event):
         "img": base_64 image to run prediction on (str)
         "threshold": float 0-1 to determine percentage of ingredients matched before returning
         "conf": confidence threshold to predict (int 0-100)
-        "overlap": acceptable overlap (int 0-100)
     }
     """
     # model inference, returns classes
@@ -31,8 +30,7 @@ def handler(event):
     img_path = model.process_save_b64(b64_img)
     try:
         conf = input["conf"]
-        overlap = input["overlap"]
-        classes = model.predict(img_path, conf=conf, overlap=overlap)
+        classes = model.predict(img_path, conf=conf)
     except KeyError:
         classes = model.predict(img_path)
     recipe_finder = RecipeFinder(
