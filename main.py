@@ -43,9 +43,11 @@ def handler(event):
     # get recipes
     try:
         threshold = input["threshold"]
-        return recipe_finder.get_recipes(threshold)
+        recipes = recipe_finder.get_recipes(threshold)
     except KeyError:
-        return recipe_finder.get_recipes()
+        recipes = recipe_finder.get_recipes()
+    
+    return {"classes": classes, "recipes": recipes}
 
 
 # from utils import InputGenerator
